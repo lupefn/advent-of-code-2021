@@ -21,9 +21,8 @@ def part2(inst):
 	for i in inst:
 		splitInst = i.split(" ")
 		if splitInst[0] == "forward":
-			horizontalPos += int(splitInst[1])
-			addend = aim * int(splitInst[1])
-			depth += addend
+			horizontalPos += int(splitInst[1]) 
+			depth += (aim * int(splitInst[1]))
 		elif splitInst[0] == "down":
 			aim += int(splitInst[1])
 		else:
