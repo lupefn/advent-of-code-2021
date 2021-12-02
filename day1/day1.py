@@ -23,4 +23,4 @@ def part2(nums):
 
 if __name__ == "__main__":
     print(part1(lines))
-    print(part2(lines)) 
+    print(part2(lines))
