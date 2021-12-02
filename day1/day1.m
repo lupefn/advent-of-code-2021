@@ -1,3 +1,5 @@
+% Reference to documentation on "readcell" function
+% https://www.mathworks.com/help/matlab/ref/readcell.html
 nums = readcell('day1data.txt');
 incrCounterPt1 = 0;
 % Part 1
