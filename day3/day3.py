@@ -17,28 +17,50 @@ def part1(nums):
 
 def part2(nums):
 	bitCount = len(nums[0])
+	oxygenCopy = nums.copy()
+	co2Copy = nums.copy()
 	mostCommon = [0] * bitCount
-	if len(nums) != 1:
-		for b in range(bitCount):
-			currOnesTally = 0
-			numsToDelete = []
-			for n in range(len(nums)):
-				if nums[n][b] == "1":
-					currOnesTally += 1
-			if currOnesTally > (len(nums) - currOnesTally):
-				mostCommon[b] = "1"
-			else:
-				mostCommon[b] = "0"
-			for o in range(len(nums)):
-				if nums[o][b] != mostCommon[b]:
-					numsToDelete.append(o)
-			for x in range(len(numsToDelete)):
-				print('index to remove', x)
-				print('length of nums', len(nums))
-				nums.pop(numsToDelete[x])
-	return nums
+	for b in range(bitCount):
+		currOnesTally = 0
+		numsToDelete = []
+		for n in range(len(oxygenCopy)):
+			if oxygenCopy[n][b] == "1":
+				currOnesTally += 1
+		if currOnesTally >= (len(oxygenCopy) - currOnesTally):
+			mostCommon[b] = "1"
+		else:
+			mostCommon[b] = "0"
+		for o in range(len(oxygenCopy)):
+			if oxygenCopy[o][b] != mostCommon[b]:
+				numsToDelete.append(o)
+		numsToDelete = sorted(numsToDelete, reverse=True)
+		for x in numsToDelete:
+			oxygenCopy.pop(x)
+		if len(oxygenCopy) == 1:
+			break
+
+	mostCommon [0] * bitCount
+	for b in range(bitCount):
+		currOnesTally = 0
+		numsToDelete = []
+		for n in range(len(co2Copy)):
+			if co2Copy[n][b] == "1":
+				currOnesTally += 1
+		if currOnesTally >= (len(co2Copy) - currOnesTally):
+			mostCommon[b] = "1"
+		else:
+			mostCommon[b] = "0"
+		for o in range(len(co2Copy)):
+			if co2Copy[o][b] == mostCommon[b]:
+				numsToDelete.append(o)
+		numsToDelete = sorted(numsToDelete, reverse=True)
+		for x in numsToDelete:
+			co2Copy.pop(x)
+		if len(co2Copy) == 1:
+			break
+	return int(oxygenCopy[0], 2) * int(co2Copy[0], 2)
 
 
 if __name__ == "__main__":
 	print(part1(lines)) # returns 852500
-	print(part2(lines)) 
+	print(part2(lines)) # return 1007985
