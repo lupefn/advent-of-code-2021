@@ -19,47 +19,36 @@ def part2(nums):
 	bitCount = len(nums[0])
 	oxygenCopy = nums.copy()
 	co2Copy = nums.copy()
-	mostCommon = [0] * bitCount
-	for b in range(bitCount):
+
+	oxygenNum = findRatings(oxygenCopy, 1, bitCount)
+	co2Num = findRatings(co2Copy, 0, bitCount)
+	return oxygenNum * co2Num
+
+def findRatings(report, oxyFlag, count):
+	mostCommon = [0] * count
+	for b in range(count):
 		currOnesTally = 0
 		numsToDelete = []
-		for n in range(len(oxygenCopy)):
-			if oxygenCopy[n][b] == "1":
+		for n in range(len(report)):
+			if report[n][b] == "1":
 				currOnesTally += 1
-		if currOnesTally >= (len(oxygenCopy) - currOnesTally):
+		if currOnesTally >= (len(report) - currOnesTally):
 			mostCommon[b] = "1"
 		else:
 			mostCommon[b] = "0"
-		for o in range(len(oxygenCopy)):
-			if oxygenCopy[o][b] != mostCommon[b]:
-				numsToDelete.append(o)
+		for o in range(len(report)):
+			if oxyFlag:
+				if report[o][b] != mostCommon[b]:
+					numsToDelete.append(o)
+			else:
+				if report[o][b] == mostCommon[b]:
+					numsToDelete.append(o)
 		numsToDelete = sorted(numsToDelete, reverse=True)
 		for x in numsToDelete:
-			oxygenCopy.pop(x)
-		if len(oxygenCopy) == 1:
+			report.pop(x)
+		if len(report) == 1:
 			break
-
-	mostCommon [0] * bitCount
-	for b in range(bitCount):
-		currOnesTally = 0
-		numsToDelete = []
-		for n in range(len(co2Copy)):
-			if co2Copy[n][b] == "1":
-				currOnesTally += 1
-		if currOnesTally >= (len(co2Copy) - currOnesTally):
-			mostCommon[b] = "1"
-		else:
-			mostCommon[b] = "0"
-		for o in range(len(co2Copy)):
-			if co2Copy[o][b] == mostCommon[b]:
-				numsToDelete.append(o)
-		numsToDelete = sorted(numsToDelete, reverse=True)
-		for x in numsToDelete:
-			co2Copy.pop(x)
-		if len(co2Copy) == 1:
-			break
-	return int(oxygenCopy[0], 2) * int(co2Copy[0], 2)
-
+	return int(report[0], 2)
 
 if __name__ == "__main__":
 	print(part1(lines)) # returns 852500
